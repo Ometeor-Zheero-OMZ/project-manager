@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  express:
+    build:
+      context: ./
+      dockerfile: docker/express/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/mydb
+    depends_on:
+      - db
+
+  nextjs:
+    build:
+      context: ./
+      dockerfile: docker/nextjs/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - express
+
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: project-manager
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

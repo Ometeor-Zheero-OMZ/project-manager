@@ -1,0 +1,45 @@
+### HOME
+GET http://localhost:8000 HTTP/1.1
+
+### Fetch Projects
+GET http://localhost:8000/projects HTTP/1.1
+
+### Create Project
+POST http://localhost:8000/projects HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "test_project",
+    "description": "test description",
+    "startDate": "2024-12-01T00:00:00.000Z",
+    "endDate": "2024-12-15T00:00:00.000Z"
+}
+
+### Fetch Tasks
+GET http://localhost:8000/tasks?projectId=1 HTTP/1.1
+
+### Create task
+POST http://localhost:8000/tasks HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "New Task",
+    "description": "task description",
+    "status": "To Do",
+    "priority": "Low",
+    "tags": "Deployment",
+    "startDate": "2024-01-10T00:00:00.000Z",
+    "dueDate": "2024-04-10T00:00:00.000Z",
+    "points": null,
+    "projectId": 1,
+    "authorUserId": 2,
+    "assignedUserId": 4
+}
+
+### Update Task Status
+PATCH http://localhost:8000/tasks/41/status HTTP/1.1
+Content-Type: application/json
+
+{
+    "status": "Work In Progress"
+}
